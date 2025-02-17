@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "629606636905",
+    "project_id": "eyadti-9cdf6",
+    "storage_bucket": "eyadti-9cdf6.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:629606636905:android:f8f0c6cc202fc3dac431f8",
+        "android_client_info": {
+          "package_name": "com.example.new_project_github"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAHql2Rq0xea4tu7qe3LIRKillfmjrNfl0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:629606636905:android:b4be143da847953fc431f8",
+        "android_client_info": {
+          "package_name": "com.example.pregnant_care"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAHql2Rq0xea4tu7qe3LIRKillfmjrNfl0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
