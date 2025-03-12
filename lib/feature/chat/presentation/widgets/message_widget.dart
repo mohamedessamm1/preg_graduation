@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pregnant_care/core/shared/extension/extencion.dart';
 import '../../../../core/shared/Cache/local_cache.dart';
-import '../../manager/chat_cubit.dart';
+import '../manager/chat_cubit.dart';
 import 'custom_textField.dart';
 import 'list_messages_widget.dart';
 

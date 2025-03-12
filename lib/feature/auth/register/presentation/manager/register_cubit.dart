@@ -1,13 +1,17 @@
 import 'package:bloc/bloc.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:panara_dialogs/panara_dialogs.dart';
 import 'package:pregnant_care/core/shared/Dio/app_dio.dart';
+import 'package:pregnant_care/feature/auth/login/presentation/manager/login_cubit.dart';
+import 'package:pregnant_care/feature/auth/login/presentation/pages/login_screen.dart';
 
 import '../../../../../core/shared/Cache/local_cache.dart';
 import '../../../../layout/presentation/pages/HomeLayout.dart';
+import '../../data/models/create_user_model.dart';
 
 part 'register_state.dart';
 
@@ -35,7 +39,7 @@ class RegisterCubit extends Cubit<RegisterState> {
   register({required BuildContext context}) async{
     emit(RegisterLoadingState());
     try {
-      await AppDioHelper.postData(url: "https://grad-app-back-end.vercel.app/api/auth/register",data: {
+      await AppDioHelper.postData(url: "auth/register",data: {
 
         "email": emailController.text,
         "password": passwordController.text,
@@ -43,9 +47,16 @@ class RegisterCubit extends Cubit<RegisterState> {
       }).then(
         (value) {
           CacheHelper.savedata(key: 'email', value: emailController.text);
-          CacheHelper.savedata(key: 'token', value: value.data['token'].toString());
-          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomeLayout(),));
-          print(value.data['token']);
+          CacheHelper.savedata(key: 'TOKEN', value: value.data['token'].toString());
+          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginScreen(),));
+          print(value.data['TOKEN'].toString());
+          createUser(
+              password: passwordController.text,
+              email: emailController.text,
+              context: context,
+              uid: value.data['TOKEN'].toString(),
+              name: usernameController.text
+          );
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text('Login successfully'),
@@ -81,5 +92,27 @@ class RegisterCubit extends Cubit<RegisterState> {
     usernameController.dispose();
     numberController.dispose();
     return super.close();
+  }
+
+
+  createUser(
+      {
+        required String password,
+        required String email,
+        required context,
+        required uid,
+        required String name}) {
+    CreateUserModel createUserModel = CreateUserModel(
+      name: name,
+      email: email,
+      password: password,
+      uid: uid,
+    );
+    FirebaseFirestore.instance
+        .collection('users')
+        .doc(uid.toString())
+        .set(createUserModel.tojson())
+        .then((value) {});
+
   }
 }

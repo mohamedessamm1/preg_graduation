@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/shared/Cache/local_cache.dart';
-import '../../manager/chat_cubit.dart';
+import '../manager/chat_cubit.dart';
 import 'custom_textField.dart';
 
 Widget noMessageWidget(

@@ -4,7 +4,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../../../core/shared/Cache/local_cache.dart';
+import '../../../../core/shared/Dio/app_dio.dart';
 import '../../../../core/shared/constant.dart';
+import '../../../../core/shared/model/user_model.dart';
 
 part 'home_state.dart';
 
@@ -58,5 +61,23 @@ class HomeCubit extends Cubit<HomeState> {
       throw 'Could not launch';
     }
   }
+  fetchMyData()async{
 
+    emit(FetchMyDataLoadingState());
+    try{
+      await AppDioHelper.getData(url: 'users/profile',token:"Bearer ${CacheHelper.getdata(key: 'TOKEN')}").then(
+            (value) {
+          accountModel = AccountModel.fromJson(value.data);
+          print(accountModel?.username);
+          print(accountModel?.username);
+          print(accountModel?.username);
+          print(accountModel?.username);
+          emit(FetchMyDataSuccessState());
+        },
+      );
+    }catch(e){
+      print(e.toString());
+      emit(FetchMyDataErrorState());
+    }
+  }
 }

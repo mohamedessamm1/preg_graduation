@@ -9,3 +9,6 @@ final class SuccessSendMessageState extends ChatState {}
 final class ErrorSendMessageState extends ChatState {}
 
 final class SuccessGetMessageState extends ChatState {}
+final class GetAllUsersDataLoadingState extends ChatState {}
+final class GetAllUsersDataState extends ChatState {}
+final class GetAllUsersDataErrorState extends ChatState {}

@@ -18,8 +18,8 @@ class _SplashViewState extends State<SplashView> with TickerProviderStateMixin {
   void initState() {
     super.initState();
     Future.delayed(const Duration(seconds: 7), () {
-      print(CacheHelper.getdata(key: 'token').toString());
-      CacheHelper.getdata(key: 'token') != null?
+      print(CacheHelper.getdata(key: 'TOKEN').toString());
+      CacheHelper.getdata(key: 'TOKEN') != null?
       Navigator.pushReplacement(
           context,
           MaterialPageRoute(

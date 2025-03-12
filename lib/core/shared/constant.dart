@@ -1,4 +1,9 @@
- List<Map<String, dynamic>> homeList = [
+ import 'package:pregnant_care/core/shared/model/user_model.dart';
+import 'package:pregnant_care/feature/layout/data/models/my_data_model.dart';
+
+import '../../feature/auth/register/data/models/create_user_model.dart';
+
+List<Map<String, dynamic>> homeList = [
   {"title": "information", "status": false,"image":"assets/images/information.png","id":1},
   {"title": "pregnancy", "status": false,"image":"assets/images/preg.png","id":2},
   {"title": "activate", "status": false,"image":"assets/images/activate.png","id":3},
@@ -11,3 +16,6 @@
   {"title": "community", "status": false,"image":"assets/images/community.png","id":10},
 
 ];
+ CreateUserModel? userModel;
+UserModel? myUserModel;
+ AccountModel ? accountModel;

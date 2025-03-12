@@ -98,7 +98,9 @@ class _PregnancyScreenState extends State<PregnancyScreen> {
         elevation: 0,
         leading: IconButton(
           icon: Icon(Icons.arrow_back, color: Colors.black),
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pop(context);
+          },
         ),
         actions: [
           Icon(Icons.notifications, color: Colors.black),
@@ -164,120 +166,124 @@ class _PregnancyScreenState extends State<PregnancyScreen> {
 
             Container(
               height: 800.h,
-              child: Expanded(
-                child: PageView.builder(
-                  controller: _pageController,
-                  itemCount: pregnancyData.length,
-                  onPageChanged: (index) => onMonthSelected(index),
-                  itemBuilder: (context, index) {
-                    final data = pregnancyData[index];
-                    return Padding(
-                      padding: EdgeInsets.all(16),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "More Details",
-                            style: TextStyle(
-                                fontSize: 18.sp, fontWeight: FontWeight.bold, color: Colors.orange),
-                          ),
-                          SizedBox(height: 10.h),
-                          Container(
-                            padding: EdgeInsets.all(16.w),
-                            decoration: BoxDecoration(
-                              color: Colors.orange,
-                              borderRadius: BorderRadius.circular(16.r),
-                            ),
-                            child: Column(
-                              children: [
-                                Text("Month ${data['month']}",
-                                    style: TextStyle(fontSize: 20.sp, color: Colors.white)),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+              child: Column(
+                children: [
+                  Expanded(
+                    child: PageView.builder(
+                      controller: _pageController,
+                      itemCount: pregnancyData.length,
+                      onPageChanged: (index) => onMonthSelected(index),
+                      itemBuilder: (context, index) {
+                        final data = pregnancyData[index];
+                        return Padding(
+                          padding: EdgeInsets.all(16),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "More Details",
+                                style: TextStyle(
+                                    fontSize: 18.sp, fontWeight: FontWeight.bold, color: Colors.orange),
+                              ),
+                              SizedBox(height: 10.h),
+                              Container(
+                                padding: EdgeInsets.all(16.w),
+                                decoration: BoxDecoration(
+                                  color: Colors.orange,
+                                  borderRadius: BorderRadius.circular(16.r),
+                                ),
+                                child: Column(
                                   children: [
-                                    Column(
+                                    Text("Month ${data['month']}",
+                                        style: TextStyle(fontSize: 20.sp, color: Colors.white)),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceAround,
                                       children: [
-                                        Icon(Icons.favorite, color: Colors.white),
-                                        Text("Heartbeat",
-                                            style: TextStyle(color: Colors.white)),
-                                        Text(data['heartbeat'],
-                                            style: TextStyle(color: Colors.white)),
-                                      ],
-                                    ),
-                                    Column(
-                                      children: [
-                                        Icon(Icons.scale, color: Colors.white),
-                                        Text("Weight",
-                                            style: TextStyle(color: Colors.white)),
-                                        Text(data['weight'],
-                                            style: TextStyle(color: Colors.white)),
-                                      ],
-                                    ),
-                                    Column(
-                                      children: [
-                                        Icon(Icons.straighten, color: Colors.white),
-                                        Text("Size",
-                                            style: TextStyle(color: Colors.white)),
-                                        Text(data['size'],
-                                            style: TextStyle(color: Colors.white)),
+                                        Column(
+                                          children: [
+                                            Icon(Icons.favorite, color: Colors.white),
+                                            Text("Heartbeat",
+                                                style: TextStyle(color: Colors.white)),
+                                            Text(data['heartbeat'],
+                                                style: TextStyle(color: Colors.white)),
+                                          ],
+                                        ),
+                                        Column(
+                                          children: [
+                                            Icon(Icons.scale, color: Colors.white),
+                                            Text("Weight",
+                                                style: TextStyle(color: Colors.white)),
+                                            Text(data['weight'],
+                                                style: TextStyle(color: Colors.white)),
+                                          ],
+                                        ),
+                                        Column(
+                                          children: [
+                                            Icon(Icons.straighten, color: Colors.white),
+                                            Text("Size",
+                                                style: TextStyle(color: Colors.white)),
+                                            Text(data['size'],
+                                                style: TextStyle(color: Colors.white)),
+                                          ],
+                                        ),
                                       ],
                                     ),
                                   ],
                                 ),
-                              ],
-                            ),
-                          ),
-                          SizedBox(height: 20.h),
-                          Text(
-                            "Healthy Food",
-                            style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold, color: Colors.orange),
-                          ),
-                          ListTile(
-                            leading: Image.asset('assets/images/milk.png', width: 50.w),
-                            title: Text("2 Glass Of Pure Milk"),
-                            subtitle: Text("Healthy drink for your health"),
-                          ),
-                          ListTile(
-                            leading: Image.asset('assets/images/banana.png', width: 50.w),
-                            title: Text("6 Bananas Daily"),
-                            subtitle: Text("Healthy food for your health"),
-                          ),
-                          SizedBox(height: 10.h),
-                          Text(
-                            "Video Tips",
-                            style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold, color: Colors.orange),
-                          ),
-                          InkWell(
-                            onTap: () async {
-                              final Uri url = Uri.parse(
-                                  'https://youtu.be/1zpV5rzWXMA' );
+                              ),
+                              SizedBox(height: 20.h),
+                              Text(
+                                "Healthy Food",
+                                style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold, color: Colors.orange),
+                              ),
+                              ListTile(
+                                leading: Image.asset('assets/images/milk.png', width: 50.w),
+                                title: Text("2 Glass Of Pure Milk"),
+                                subtitle: Text("Healthy drink for your health"),
+                              ),
+                              ListTile(
+                                leading: Image.asset('assets/images/banana.png', width: 50.w),
+                                title: Text("6 Bananas Daily"),
+                                subtitle: Text("Healthy food for your health"),
+                              ),
+                              SizedBox(height: 10.h),
+                              Text(
+                                "Video Tips",
+                                style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold, color: Colors.orange),
+                              ),
+                              InkWell(
+                                onTap: () async {
+                                  final Uri url = Uri.parse(
+                                      'https://youtu.be/1zpV5rzWXMA' );
 
-                              // Check if the URL can be launched
-                              if (await canLaunchUrl(url)) {
-                              await launchUrl(url, mode: LaunchMode.externalApplication);
-                              } else {
-                              throw 'Could not launch';
-                              }                            },
-                            child: Container(
-                              margin: EdgeInsets.only(top: 10.h),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(16.r),
-                                image: DecorationImage(
-                                  image: AssetImage('assets/images/two.jpg'),
-                                  fit: BoxFit.cover,
+                                  // Check if the URL can be launched
+                                  if (await canLaunchUrl(url)) {
+                                  await launchUrl(url, mode: LaunchMode.externalApplication);
+                                  } else {
+                                  throw 'Could not launch';
+                                  }                            },
+                                child: Container(
+                                  margin: EdgeInsets.only(top: 10.h),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(16.r),
+                                    image: DecorationImage(
+                                      image: AssetImage('assets/images/two.jpg'),
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                  height: 190.h,
+                                  child: Center(
+                                    child: Icon(Icons.play_circle_fill, color: Colors.brown, size: 50.w),
+                                  ),
                                 ),
                               ),
-                              height: 190.h,
-                              child: Center(
-                                child: Icon(Icons.play_circle_fill, color: Colors.brown, size: 50.w),
-                              ),
-                            ),
+                            ],
                           ),
-                        ],
-                      ),
-                    );
-                  },
-                ),
+                        );
+                      },
+                    ),
+                  ),
+                ],
               ),
             ),
           ],

@@ -6,7 +6,9 @@ class AppDioHelper {
 
   static init() {
     dio = Dio(BaseOptions(
-      baseUrl: 'https://todo.iraqsapp.com',
+      followRedirects: false,
+
+      baseUrl: 'https://grad-app-back-end-v2.vercel.app/api/',
       receiveDataWhenStatusError: true,
     ));
   }
@@ -16,6 +18,7 @@ class AppDioHelper {
     String? token,
   }) async {
     dio.options.headers = {
+      "Content-Type": "application/json",
       'Authorization': token ?? '',
     };
     return dio.get(url);
@@ -52,6 +55,8 @@ class AppDioHelper {
     String? token,
   }) async {
     dio.options.headers = {
+      "Content-Type": "application/json",
+
       'Authorization': token ?? '',
     };
     return dio.put(url, data: data, queryParameters: query);

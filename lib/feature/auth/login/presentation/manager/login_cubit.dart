@@ -6,7 +6,10 @@ import 'package:meta/meta.dart';
 import 'package:panara_dialogs/panara_dialogs.dart';
 import 'package:pregnant_care/core/shared/Cache/local_cache.dart';
 import 'package:pregnant_care/core/shared/Dio/app_dio.dart';
+import 'package:pregnant_care/feature/layout/presentation/manager/home_layout_cubit.dart';
 
+import '../../../../../core/shared/constant.dart';
+import '../../../../layout/data/models/my_data_model.dart';
 import '../../../../layout/presentation/pages/HomeLayout.dart';
 
 part 'login_state.dart';
@@ -30,7 +33,7 @@ class LoginCubit extends Cubit<LoginState> {
   login({required context})async{
     emit(LoginLoadingState());
     try{
-      await AppDioHelper.postData(url: 'https://grad-app-back-end.vercel.app/api/auth/login',
+      await AppDioHelper.postData(url: 'auth/login',
           data: {
             "email": emailController.text,
             "password": passwordController.text,
@@ -38,9 +41,14 @@ class LoginCubit extends Cubit<LoginState> {
       ).then( (response) {
         CacheHelper.savedata(key: 'email', value: emailController.text);
 
-        CacheHelper.savedata(key: 'token', value: response.data['token'].toString());
+        CacheHelper.savedata(key: 'TOKEN', value: response.data['token'].toString());
+        myUserModel = UserModel.fromJson(response.data);
+
+        print(myUserModel?.user?.username);
+        print(myUserModel?.user?.id);
+        print(myUserModel?.token);
         Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomeLayout(),));
-        print(response.data['token']);
+        print(CacheHelper.getdata(key: 'TOKEN'));
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text('Login successfully'),

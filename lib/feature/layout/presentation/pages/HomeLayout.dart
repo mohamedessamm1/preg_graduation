@@ -1,3 +1,4 @@
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -22,35 +23,41 @@ class HomeLayout extends StatelessWidget {
                     topLeft: Radius.circular(25.0),
                     topRight: Radius.circular(25.0),
                   ),
-                  child: BottomNavigationBar(
-                      selectedItemColor: mainColor,
-                      backgroundColor: mainColor,
-                      items: [
-                        BottomNavigationBarItem(
-                          backgroundColor: Colors.brown,
-                          icon: Icon(Icons.home),
-                          label: 'Home',
-                        ),
-                        BottomNavigationBarItem(
-                          backgroundColor: Colors.brown,
-                          icon: Icon(Icons.favorite),
-                          label: 'Favourite',
-                        ),
-                        BottomNavigationBarItem(
-                          backgroundColor: Colors.brown,
-                          icon: Icon(Icons.chat),
-                          label: 'Chat',
-                        ),
-                        BottomNavigationBarItem(
-                          backgroundColor: Colors.brown,
-                          icon: Icon(Icons.person),
-                          label: 'Profile',
-                        ),
-                      ],
-                      currentIndex: HomeLayoutCubit.get(context).currentIndex,
-                      onTap: (index) {
-                        HomeLayoutCubit.get(context).changeNavBarIndex(index);
-                      }),
+                  child: ConditionalBuilder(
+                      condition: state is! FetchMyDataLoadingState,
+                      builder: (context) => BottomNavigationBar(
+                          selectedItemColor: mainColor,
+                          backgroundColor: mainColor,
+                          items: [
+                            BottomNavigationBarItem(
+                              backgroundColor: Colors.brown,
+                              icon: Icon(Icons.home),
+                              label: 'Home',
+                            ),
+                            BottomNavigationBarItem(
+                              backgroundColor: Colors.brown,
+                              icon: Icon(Icons.favorite),
+                              label: 'Favourite',
+                            ),
+                            BottomNavigationBarItem(
+                              backgroundColor: Colors.brown,
+                              icon: Icon(Icons.chat),
+                              label: 'Chat',
+                            ),
+                            BottomNavigationBarItem(
+                              backgroundColor: Colors.brown,
+                              icon: Icon(Icons.person),
+                              label: 'Profile',
+                            ),
+                          ],
+                          currentIndex: HomeLayoutCubit.get(context).currentIndex,
+                          onTap: (index) {
+                            HomeLayoutCubit.get(context).changeNavBarIndex(index);
+                          }),
+                      fallback: (context) => Center(
+                            child: CircularProgressIndicator(),
+                      )
+                  )
                 ),
                 body: Padding(
                   padding: EdgeInsets.only(top: 50.h, left: 12.w, right: 12.w),
