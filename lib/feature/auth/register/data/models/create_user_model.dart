@@ -3,12 +3,14 @@ class CreateUserModel {
   String? email;
   String? password;
   String? uid;
+  bool? dr=false;
 
   CreateUserModel({
     this.name,
     this.email,
     this.password,
     this.uid,
+    this.dr,
 
   });
 
@@ -17,6 +19,7 @@ class CreateUserModel {
     email = json?['email'];
     password = json?['pass'];
     uid = json?['uid'];
+    dr = json?['dr'];
 
   }
 
@@ -26,6 +29,7 @@ class CreateUserModel {
       'email': email,
       'pass': password,
       'uid': uid,
+      'dr': dr,
     };
   }
 }

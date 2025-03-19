@@ -13,6 +13,7 @@ class YogaScreen extends StatelessWidget {
           builder: (context, state) {
             ChatCubit.get(context).getMessage(ReceiverId: '1',groupName: 'group3');
             return chatBodyWidget(
+              receiverEmail: '',
                 groupName: 'group3',
                 receiverId: '1',
                 context: context,

@@ -11,6 +11,6 @@ final class GetMyDataState extends HomeLayoutState {}
 final class GetMyDataLoadingState extends HomeLayoutState {}
 
 final class SwitchButtonChangeState extends HomeLayoutState {}
-final class FetchMyDataLoadingState extends HomeLayoutState {}
+final class FetchMyDataHomeLayOutLoadingState extends HomeLayoutState {}
 final class FetchMyDataSuccessState extends HomeLayoutState {}
 final class FetchMyDataErrorState extends HomeLayoutState {}

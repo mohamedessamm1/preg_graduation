@@ -45,16 +45,18 @@ class RegisterCubit extends Cubit<RegisterState> {
         "password": passwordController.text,
         "username": usernameController.text,
       }).then(
-        (value) {
+        (value) async{
+          print(value.data);
           CacheHelper.savedata(key: 'email', value: emailController.text);
-          CacheHelper.savedata(key: 'TOKEN', value: value.data['token'].toString());
-          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginScreen(),));
-          print(value.data['TOKEN'].toString());
+        await  CacheHelper.savedata(key: 'TOKEN', value: value.data['token'].toString());
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomeLayout(),));
+          print("my toke=>${CacheHelper.getdata(key: 'TOKEN').toString()}");
+          print(value.data['token'].toString());
           createUser(
               password: passwordController.text,
               email: emailController.text,
               context: context,
-              uid: value.data['TOKEN'].toString(),
+              uid: value.data['token'].toString(),
               name: usernameController.text
           );
           ScaffoldMessenger.of(context).showSnackBar(
@@ -68,6 +70,7 @@ class RegisterCubit extends Cubit<RegisterState> {
         },
       );
     }catch(e) {
+      print(e);
       PanaraInfoDialog.show(
         color: Colors.red,
         context,
@@ -110,7 +113,7 @@ class RegisterCubit extends Cubit<RegisterState> {
     );
     FirebaseFirestore.instance
         .collection('users')
-        .doc(uid.toString())
+        .doc(email)
         .set(createUserModel.tojson())
         .then((value) {});
 

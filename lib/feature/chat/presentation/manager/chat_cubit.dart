@@ -16,6 +16,20 @@ class ChatCubit extends Cubit<ChatState> {
   static ChatCubit get(context) => BlocProvider.of(context);
   final TextEditingController messageController = TextEditingController();
   final ScrollController scrollController = ScrollController();
+  String ? myUidFireStore;
+  getMyDataFireStore() async {
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(CacheHelper.getdata(key: 'TOKEN').toString())
+        .get()
+        .then((value) {
+          print(CacheHelper.getdata(key: 'email').toString());
+          print(value.data());
+      myUidFireStore = value.data()?['uid'];
+      print("myUidFireStore=>${myUidFireStore}");
+    });
+  }
+
   sendMessage(
       {required date,
       required text,
@@ -35,7 +49,8 @@ class ChatCubit extends Cubit<ChatState> {
         .add(messageModel.toJson())
         .then((value) async {
       textFieldController.clear();
-
+      groupName==''?
+      getMessageUser(ReceiverId: receiverId):
       getMessage(ReceiverId: receiverId,groupName: groupName);
       Timer(
           const Duration(milliseconds: 300),
@@ -86,22 +101,22 @@ class ChatCubit extends Cubit<ChatState> {
         required text,
         required sender,
         required textFieldController,
-        required receiverId,
+        required receiverEmail,
         required scrollController}) async {
     MessageModel messageModel =
     MessageModel(dateTime: date.toString(), sender: sender, text: text);
     await FirebaseFirestore.instance
         .collection('users')
-        .doc(CacheHelper.getdata(key: 'uid').toString())
+        .doc(CacheHelper.getdata(key: 'email').toString())
         .collection('chat')
-        .doc(receiverId)
+        .doc(receiverEmail)
         .collection('message')
         .add(messageModel.toJson());
     await FirebaseFirestore.instance
         .collection('users')
-        .doc(receiverId)
+        .doc(receiverEmail)
         .collection('chat')
-        .doc(CacheHelper.getdata(key: 'uid').toString())
+        .doc(CacheHelper.getdata(key: 'email').toString())
         .collection('message')
         .add(messageModel.toJson())
         .then((value) async {
@@ -109,7 +124,7 @@ class ChatCubit extends Cubit<ChatState> {
           print(value.id);
       textFieldController.clear();
 
-      getMessageUser(ReceiverId: receiverId);
+      getMessageUser(ReceiverId: receiverEmail);
 
       Timer(
           const Duration(milliseconds: 300),
@@ -123,7 +138,7 @@ class ChatCubit extends Cubit<ChatState> {
   Future<List> getMessageUser({required ReceiverId}) async {
     CollectionReference collectionRef = FirebaseFirestore.instance
         .collection('users')
-        .doc(CacheHelper.getdata(key: 'uid').toString())
+        .doc(CacheHelper.getdata(key: 'email').toString())
         .collection('chat')
         .doc(ReceiverId)
         .collection('message');
@@ -148,12 +163,12 @@ class ChatCubit extends Cubit<ChatState> {
     users.clear();
     FirebaseFirestore.instance.collection('users').get().then((value) {
       value.docs.forEach((element) {
-        if (element.data()['uid'] != userModel?.uid) {
-          users.add(CreateUserModel.fromjson(element.data()));
-        }
+        users.add(CreateUserModel.fromjson(element.data()));
+print(element.data());
       });
       emit((GetAllUsersDataState()));
     }).catchError((error) {
+      print(error.toString());
       emit((GetAllUsersDataErrorState()));
     });
   }

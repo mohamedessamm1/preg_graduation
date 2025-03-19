@@ -12,7 +12,7 @@ class _PregnancyScreenState extends State<PregnancyScreen> {
   int selectedMonth = 7; // Default month
   PageController _pageController = PageController(initialPage: 6);
 
-  final List<Map<String, dynamic>> pregnancyData = [
+  final List<dynamic> pregnancyData = [
     {
       'month': 1,
       'heartbeat': 'No heartbeat yet',

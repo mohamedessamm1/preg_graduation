@@ -62,4 +62,10 @@ print(activeDays);
       print('removedata');
     });
   }
+  static  Future<void> saveIdList(List<String> idList) async {
+    await sharedPreferences!.setStringList('id_list', idList);
+  }
+  static Future<List<String>> getIdList() async {
+    return sharedPreferences!.getStringList('id_list') ?? [];
+  }
 }

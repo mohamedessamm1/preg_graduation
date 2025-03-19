@@ -14,6 +14,7 @@ class BabyScreen extends StatelessWidget {
           builder: (context, state) {
             ChatCubit.get(context).getMessage(ReceiverId: '1',groupName: 'group2');
             return chatBodyWidget(
+              receiverEmail:'',
                 receiverId: '1',
                 groupName: 'group2',
                 context: context,

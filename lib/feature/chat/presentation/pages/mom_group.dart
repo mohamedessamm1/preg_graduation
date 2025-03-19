@@ -3,7 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../manager/chat_cubit.dart';
 import '../widgets/chat_body.dart';
 
-class mom_screen extends StatelessWidget {
+class MomGroupScreen extends StatelessWidget {
+  const MomGroupScreen({super.key});
+
 
   @override
   Widget build(BuildContext context) {
@@ -14,6 +16,7 @@ class mom_screen extends StatelessWidget {
             ChatCubit.get(context).getMessage(ReceiverId: '1',groupName: 'group1');
             return chatBodyWidget(
                 groupName: 'group1',
+                receiverEmail: '',
                 receiverId: '1',
                 context: context,
                 chatCubit: ChatCubit.get(context),

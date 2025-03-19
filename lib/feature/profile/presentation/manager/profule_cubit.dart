@@ -26,12 +26,14 @@ class ProfuleCubit extends Cubit<ProfuleState> {
   TextEditingController newPasswordController = TextEditingController();
   TextEditingController oldPasswordController = TextEditingController();
   TextEditingController confirmPasswordController = TextEditingController();
-  fetchMyData()async{
-
+  fetchMyData() async {
     emit(FetchMyDataLoadingState());
-    try{
-      await AppDioHelper.getData(url: 'users/profile',token:"Bearer ${CacheHelper.getdata(key: 'TOKEN')}").then(
-            (value) {
+    try {
+      await AppDioHelper.getData(
+              url: 'users/profile',
+              token: "Bearer ${CacheHelper.getdata(key: 'TOKEN')}")
+          .then(
+        (value) {
           accountModel = AccountModel.fromJson(value.data);
           print(accountModel?.username);
           print(accountModel?.username);
@@ -40,7 +42,7 @@ class ProfuleCubit extends Cubit<ProfuleState> {
           emit(FetchMyDataSuccessState());
         },
       );
-    }catch(e){
+    } catch (e) {
       print(e.toString());
       emit(FetchMyDataErrorState());
     }
@@ -81,8 +83,7 @@ class ProfuleCubit extends Cubit<ProfuleState> {
       final response = await http.put(
         url,
         headers: {
-          "Authorization":
-              "Bearer ${CacheHelper.getdata(key: 'TOKEN')}",
+          "Authorization": "Bearer ${CacheHelper.getdata(key: 'TOKEN')}",
           "Content-Type": "application/json",
         },
         body: jsonEncode({
@@ -97,7 +98,11 @@ class ProfuleCubit extends Cubit<ProfuleState> {
           content: Text(response.body),
           backgroundColor: Colors.green,
         ));
-        Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => HomeLayout(),));
+        Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => HomeLayout(),
+            ));
 
         emit(SuccessEditProfileState());
       } else {
@@ -111,7 +116,7 @@ class ProfuleCubit extends Cubit<ProfuleState> {
       }
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text('something went wrong try again' ),
+        content: Text('something went wrong try again'),
         backgroundColor: Colors.red,
       ));
 
