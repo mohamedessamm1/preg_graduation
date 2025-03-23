@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:pregnant_care/feature/home/presentation/pages/lates_Studies_6.dart';
+import 'package:pregnant_care/feature/home/presentation/pages/latest_Studies_details_1.dart';
+import 'package:pregnant_care/feature/home/presentation/pages/latest_studies_4.dart';
+
+import 'latest_studies_3.dart';
 
 class LatestStudiesScreen extends StatefulWidget {
   const LatestStudiesScreen({super.key});
@@ -65,21 +70,47 @@ class _LatestStudiesScreenState extends State<LatestStudiesScreen> {
                   ),
                 ),
                 SizedBox(height: 10.h),
-                _buildStudyCard(
-                    'assets/images/image2.png', 'Baby Growth and Development'),
-                SizedBox(height: 10.h),
-                _buildStudyCard(
-                  'assets/images/image2.png',
-                  'Baby Growth and Development',
-                  subtitle: 'Top tips to help your baby\'s development',
+                InkWell(
+                  onTap: () {
+
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => NewbornCareScreen()));
+                  },
+                  child: _buildStudyCard(
+                      'assets/images/image2.png', 'Newborn Care Guide'),
                 ),
+                SizedBox(height: 10.h),
+                InkWell(
+                  onTap: () {
+
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => PelvicPainScreen()));
+                  },
+                  child: _buildStudyCard(
+                      'assets/images/image2.png', 'Pelvic Pain in Pregnancy'),
+                ),
+                SizedBox(height: 10.h),
+
                 if (isMore) ...[
+                  InkWell(
+                    onTap: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => PregnancySymptomsScreen()));
+                    },
+                    child: _buildStudyCard(
+                      'assets/images/image2.png',
+                      'Pregnancy Symptoms & Concerns',
+                      subtitle: '',
+                    ),
+                  ),
                   SizedBox(height: 10.h),
-                  _buildStudyCard('assets/images/image2.png',
-                      'Baby Growth and Development'),
-                  SizedBox(height: 10.h),
-                  _buildStudyCard('assets/images/image2.png',
-                      'Baby Growth and Development'),
+                  InkWell(
+                    onTap: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => ChildMentalHealthScreen()));
+                    },
+                    child: _buildStudyCard(
+                      'assets/images/image2.png',
+                      'Child Mental Well-being Guide',
+                      subtitle: '',
+                    ),
+                  ),
                 ],
                 SizedBox(height: 20.h),
                 Center(

@@ -7,6 +7,7 @@ import 'package:pregnant_care/core/shared/Colors/colors.dart';
 import 'package:pregnant_care/core/shared/constant.dart';
 import 'package:pregnant_care/core/shared/extension/extencion.dart';
 import 'package:pregnant_care/feature/auth/login/presentation/pages/login_screen.dart';
+import 'package:pregnant_care/feature/favourite/presentation/pages/favourite_screen.dart';
 import 'package:pregnant_care/feature/profile/presentation/pages/change_password.dart';
 import '../manager/profule_cubit.dart';
 import 'edit_profile.dart';
@@ -16,6 +17,7 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return BlocProvider(
       create: (context) => ProfuleCubit()..fetchMyData(),
       child: BlocBuilder<ProfuleCubit, ProfuleState>(
@@ -26,10 +28,15 @@ class ProfileScreen extends StatelessWidget {
               backgroundColor: mainColor,
               appBar: AppBar(
                 centerTitle: true,
-                title: const Text("Profile", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
+                title: Text(
+                  "Profile",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 17.sp, // Responsive font size
+                  ),
+                ),
                 backgroundColor: Colors.transparent,
                 elevation: 0,
-
               ),
               body: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
@@ -39,45 +46,46 @@ class ProfileScreen extends StatelessWidget {
                       padding: EdgeInsets.symmetric(vertical: 20.h),
                       decoration: BoxDecoration(
                         color: const Color(0xFFB08E76),
-                        borderRadius: BorderRadius.circular(20),
+                        borderRadius: BorderRadius.circular(20.r),
                         boxShadow: [
                           BoxShadow(
                             color: Colors.black26,
-                            blurRadius: 10,
-                            spreadRadius: 2,
+                            blurRadius: 10.r,
+                            spreadRadius: 2.r,
                           )
                         ],
                       ),
                       child: Column(
                         children: [
-                          const Text(
+                          Text(
                             "Profile",
                             style: TextStyle(
-                              fontSize: 20,
+                              fontSize: 17.sp,
                               fontWeight: FontWeight.bold,
                               color: Colors.white,
                             ),
                           ),
-                          const SizedBox(height: 15),
+                          SizedBox(height: 15.h),
                           CircleAvatar(
-                            radius: 50,
+                            radius: 50.r, // Responsive radius
                             backgroundImage: AssetImage("assets/images/user.png"),
                           ),
-                          const SizedBox(height: 10),
+                          SizedBox(height: 10.h),
                           Text(
                             accountModel?.username ?? "",
-                            style: const TextStyle(
-                              fontSize: 18,
+                            style: TextStyle(
+                              fontSize: 15.sp,
                               fontWeight: FontWeight.w500,
                               color: Colors.white,
                             ),
                           ),
-                          const SizedBox(height: 20),
-                          const Divider(color: Colors.white38, thickness: 0.5, indent: 20, endIndent: 20),
+                          SizedBox(height: 20.h),
+                          Divider(color: Colors.white38, thickness: 0.5.h, indent: 20.w, endIndent: 20.w),
                           _buildMenuItem(Icons.person, "Edit Profile", context, const EditProfileScreen()),
-                          _buildMenuItem(Icons.favorite, "Favorite", context, null),
+                          _buildMenuItem(Icons.favorite, "Favorite", context, FavouriteScreen()),
                           _buildMenuItem(Icons.lock, "Change Password", context, ChangePasswordPage()),
-                          _buildLogoutButton(context)
+                          SizedBox(height: 20.h),
+                          _buildLogoutButton(context),
                         ],
                       ),
                     ),
@@ -98,38 +106,43 @@ class ProfileScreen extends StatelessWidget {
           ? () => Navigator.push(context, MaterialPageRoute(builder: (context) => page))
           : null,
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+        padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 15.h),
         child: Row(
           children: [
-            Icon(icon, color: Colors.white, size: 24),
-            const SizedBox(width: 15),
+            Icon(icon, color: Colors.white, size: 21.sp),
+            SizedBox(width: 15.w),
             Expanded(
               child: Text(
                 title,
-                style: const TextStyle(fontSize: 16, color: Colors.white, fontWeight: FontWeight.w500),
+                style: TextStyle(
+                  fontSize: 13.sp,
+                  color: Colors.white,
+                  fontWeight: FontWeight.w500,
+                ),
               ),
             ),
-            const Icon(Icons.arrow_forward_ios, size: 18, color: Colors.white54),
+            Icon(Icons.arrow_forward_ios, size: 15.sp, color: Colors.white54),
           ],
         ),
       ),
     );
   }
 }
+
 Widget _buildLogoutButton(BuildContext context) {
   return SizedBox(
-    width: double.infinity,
+    width: 170.w,
     child: ElevatedButton.icon(
       onPressed: () => _showLogoutDialog(context),
-      icon: const Icon(Icons.exit_to_app, color: Colors.red),
-      label: const Text(
+      icon: Icon(Icons.exit_to_app, color: Colors.red, size: 15.sp),
+      label: Text(
         "Logout",
-        style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold,color: Colors.red),
+        style: TextStyle(fontSize: 13.sp, fontWeight: FontWeight.bold, color: Colors.red),
       ),
       style: ElevatedButton.styleFrom(
         backgroundColor: mainColor,
         padding: EdgeInsets.symmetric(vertical: 12.h),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.r)),
       ),
     ),
   );
@@ -141,12 +154,12 @@ void _showLogoutDialog(BuildContext context) {
     builder: (context) {
       return AlertDialog(
         backgroundColor: mainColor,
-        title: const Text("Logout"),
-        content: const Text("Are you sure you want to log out?"),
+        title: Text("Logout", style: TextStyle(fontSize: 15.sp)),
+        content: Text("Are you sure you want to log out?", style: TextStyle(fontSize: 13.sp)),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text("Cancel",style: TextStyle(color: Colors.white),),
+            child: Text("Cancel", style: TextStyle(color: Colors.white, fontSize: 13.sp)),
           ),
           TextButton(
             onPressed: () {
@@ -157,13 +170,13 @@ void _showLogoutDialog(BuildContext context) {
                     (route) => false,
               );
               ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                  content: Text('Logout successfully'),
+                SnackBar(
+                  content: Text('Logout successfully', style: TextStyle(fontSize: 11.sp)),
                   backgroundColor: Colors.green,
                 ),
               );
             },
-            child: const Text("Logout", style: TextStyle(color: Colors.red)),
+            child: Text("Logout", style: TextStyle(color: Colors.red, fontSize: 13.sp)),
           ),
         ],
       );

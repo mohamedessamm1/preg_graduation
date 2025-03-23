@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
-import 'package:pregnant_care/core/shared/Cache/local_cache.dart';
 import 'package:pregnant_care/core/shared/extension/extencion.dart';
 
 import '../manager/home_cubit.dart';
@@ -51,24 +50,25 @@ class ItemGridViewHome extends StatelessWidget {
             borderRadius: BorderRadius.circular(10.r),
           ),
           child: Column(
+            spacing: 10.h,
             children: [
               SizedBox(
-                height: 150.h,
+                height: 140.h,
                 width: double.infinity,
                 child: ClipRRect(
                     borderRadius: BorderRadius.circular(10.r),
                     child: Image.asset(
-                      image!,
+                      image,
                       fit: BoxFit.cover,
                     )),
               ),
-              10.ph,
+              2.ph,
               Text(
-                title!,
+                title,
                 style: TextStyle(
                     color: Colors.black,
                     fontWeight: FontWeight.bold,
-                    fontSize: 15.sp),
+                    fontSize: 13.sp),
               )
             ],
           ),

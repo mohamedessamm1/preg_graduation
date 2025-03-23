@@ -1,5 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:pregnant_care/feature/home/presentation/widgets/video_tile.dart';
+import 'package:url_launcher/url_launcher.dart';
+void _launchURL(String url) async {
+  if (await canLaunch(url)) {
+    await launch(url);
+  } else {
+    throw 'Could not launch $url';
+  }
+}
 
 class ListVideoTile extends StatelessWidget {
   List? videoOnTapList;
@@ -13,6 +21,7 @@ class ListVideoTile extends StatelessWidget {
           return VideoTile(
             title: videoTitleList?[index].toString(),
             onTap:(){
+              _launchURL(videoOnTapList![index].toString());
               print(videoOnTapList?[index]);
             }
           );

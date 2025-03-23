@@ -58,7 +58,6 @@ class ProfuleCubit extends Cubit<ProfuleState> {
         data: {
           'username': nameController.text,
           'email': emailController.text,
-          'preferredLanguage': 'EN'
         },
       ).then((value) {
         print(value);
@@ -106,6 +105,7 @@ class ProfuleCubit extends Cubit<ProfuleState> {
 
         emit(SuccessEditProfileState());
       } else {
+
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text(response.body),
           backgroundColor: Colors.red,

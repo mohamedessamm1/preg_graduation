@@ -93,7 +93,7 @@ class ChatListScreen extends StatelessWidget {
         children: [
           CircleAvatar(
             backgroundColor: Colors.white,
-            radius: 34.r,
+            radius: 30.r,
             backgroundImage: AssetImage(image),
           ),
           SizedBox(height: 8.h),
@@ -130,12 +130,12 @@ class ChatListScreen extends StatelessWidget {
         child: ListTile(
           leading: CircleAvatar(
             backgroundColor: Colors.white,
-            radius: 30.r,
+            radius: 27.r,
             backgroundImage: dr==true?AssetImage('assets/images/dr.png'): AssetImage('assets/images/user.png'),
           ),
           title: Text(
             name,
-            style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold, color: Colors.white),
+            style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold, color: Colors.white),
           ),
         ),
       ),
