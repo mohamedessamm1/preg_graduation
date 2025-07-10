@@ -26,10 +26,12 @@ class MentalHealthScreenState extends State<MentalHealthScreen> {
               Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  IconButton(onPressed: () => Navigator.pop(context), icon: Icon(
-                    Icons.arrow_back,
-                    color: Colors.white,
-                  )),
+                  IconButton(
+                      onPressed: () => Navigator.pop(context),
+                      icon: Icon(
+                        Icons.arrow_back,
+                        color: Colors.white,
+                      )),
                   SizedBox(width: 10.w),
                   Text(
                     'Mental Health',

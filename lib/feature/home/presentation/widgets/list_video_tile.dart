@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:pregnant_care/feature/home/presentation/widgets/video_tile.dart';
 import 'package:url_launcher/url_launcher.dart';
-void _launchURL(String url) async {
-  if (await canLaunch(url)) {
-    await launch(url);
-  } else {
-    throw 'Could not launch $url';
-  }
+import 'package:url_launcher/url_launcher.dart';
+
+Future<void> _launchURL(String urlString) async {
+  final Uri url = Uri.parse(urlString);
+  await launchUrl(
+    url,
+    mode: LaunchMode.externalApplication, // مهم جدًا لمقاطع يوتيوب
+  );
 }
 
 class ListVideoTile extends StatelessWidget {
@@ -17,6 +19,7 @@ class ListVideoTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
+      shrinkWrap: true,
         itemBuilder:(context, index) {
           return VideoTile(
             title: videoTitleList?[index].toString(),

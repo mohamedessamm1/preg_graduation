@@ -35,11 +35,11 @@ class RegisterCubit extends Cubit<RegisterState> {
     }
     emit(ChangePasswordVisibilityState());
   }
-  
+  var resonse;
   register({required BuildContext context}) async{
     emit(RegisterLoadingState());
     try {
-      await AppDioHelper.postData(url: "auth/register",data: {
+       resonse =await AppDioHelper.postData(url: "auth/register",data: {
 
         "email": emailController.text,
         "password": passwordController.text,
@@ -71,6 +71,7 @@ class RegisterCubit extends Cubit<RegisterState> {
       );
     }catch(e) {
       print(e);
+      print(resonse);
       PanaraInfoDialog.show(
         color: Colors.red,
         context,

@@ -19,6 +19,11 @@ class _PregnancyScreenState extends State<PregnancyScreen> {
       'weight': 'Tiny, <1g',
       'size': '0.1 in',
       'growth': 'Embryo begins forming.',
+      'food': [
+        'Folic Acid - Essential for early neural tube development',
+        'Oranges - High in vitamin C and folate',
+        'Leafy Greens - Rich in iron and folic acid',
+      ],
     },
     {
       'month': 2,
@@ -26,6 +31,11 @@ class _PregnancyScreenState extends State<PregnancyScreen> {
       'weight': '1g',
       'size': '0.6 in',
       'growth': 'Major organs start developing.',
+      'food': [
+        'Spinach - Provides iron and folic acid',
+        'Eggs - High in protein and choline',
+        'Dairy Products - Rich in calcium for bone development',
+      ],
     },
     {
       'month': 3,
@@ -33,6 +43,11 @@ class _PregnancyScreenState extends State<PregnancyScreen> {
       'weight': '14g',
       'size': '2.5 in',
       'growth': 'Facial features start forming.',
+      'food': [
+        'Avocado - Healthy fats for brain development',
+        'Greek Yogurt - Supports digestion and bone strength',
+        'Lean Meat - Provides protein and iron',
+      ],
     },
     {
       'month': 4,
@@ -40,6 +55,11 @@ class _PregnancyScreenState extends State<PregnancyScreen> {
       'weight': '100g',
       'size': '5 in',
       'growth': 'Fingers, toes, and hair start growing.',
+      'food': [
+        'Salmon - Omega-3 for baby’s brain development',
+        'Nuts and Seeds - Source of healthy fats and protein',
+        'Bananas - Prevents leg cramps and supports digestion',
+      ],
     },
     {
       'month': 5,
@@ -47,6 +67,11 @@ class _PregnancyScreenState extends State<PregnancyScreen> {
       'weight': '300g',
       'size': '10 in',
       'growth': 'Baby starts kicking, lanugo appears.',
+      'food': [
+        'Milk - Provides calcium for strong bones',
+        'Lentils - High in protein and fiber',
+        'Sweet Potatoes - Rich in vitamin A for baby’s growth',
+      ],
     },
     {
       'month': 6,
@@ -54,6 +79,11 @@ class _PregnancyScreenState extends State<PregnancyScreen> {
       'weight': '600g',
       'size': '12 in',
       'growth': 'Eyes open, lungs begin to mature.',
+      'food': [
+        'Carrots - Improves baby’s eyesight',
+        'Oatmeal - Maintains energy levels',
+        'Walnuts - Enhances brain development',
+      ],
     },
     {
       'month': 7,
@@ -61,6 +91,11 @@ class _PregnancyScreenState extends State<PregnancyScreen> {
       'weight': '2.79 kg',
       'size': '14.8 in',
       'growth': 'Brain rapidly develops, baby reacts to sound.',
+      'food': [
+        'Almonds - Supports baby’s memory and brain function',
+        'Dates - Provides energy and aids digestion',
+        'Dark Leafy Greens - Boosts iron levels',
+      ],
     },
     {
       'month': 8,
@@ -68,6 +103,11 @@ class _PregnancyScreenState extends State<PregnancyScreen> {
       'weight': '2.3 kg',
       'size': '17 in',
       'growth': 'Baby gains fat, movements are stronger.',
+      'food': [
+        'Cheese - Strengthens baby’s bones',
+        'Sweet Potato - Enhances immune system',
+        'Protein-rich foods (chicken, tofu) - Supports muscle growth',
+      ],
     },
     {
       'month': 9,
@@ -75,6 +115,11 @@ class _PregnancyScreenState extends State<PregnancyScreen> {
       'weight': '3.4 kg',
       'size': '20 in',
       'growth': 'Baby is ready for birth.',
+      'food': [
+        'Eggplant - Helps with natural labor',
+        'Watermelon - Reduces swelling and keeps hydration',
+        'Whole Grains - Sustains energy levels',
+      ],
     },
   ];
 
@@ -102,14 +147,6 @@ class _PregnancyScreenState extends State<PregnancyScreen> {
             Navigator.pop(context);
           },
         ),
-        actions: [
-          Icon(Icons.notifications, color: Colors.black),
-          SizedBox(width: 10.w),
-          CircleAvatar(
-            backgroundImage: AssetImage('assets/images/user.png'),
-          ),
-          SizedBox(width: 10.w),
-        ],
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -120,20 +157,22 @@ class _PregnancyScreenState extends State<PregnancyScreen> {
                Container(width: double.infinity,color: Colors.blue[100],height: 350.h,),
 
                Column(
+                 crossAxisAlignment: CrossAxisAlignment.center,
                  children: [
 
                    Image.asset('assets/images/embryo.png', height: 190.h),
                    SizedBox(height: 10.h),
-                   Container(
+                   SizedBox(
                      height: 50.h,
                      child: ListView.builder(
+                       shrinkWrap: true,
                        scrollDirection: Axis.horizontal,
                        itemCount: 9,
                        itemBuilder: (context, index) {
                          return GestureDetector(
                            onTap: () => onMonthSelected(index),
                            child: Container(
-                             width: 50.w,
+                             width: 20.w,
                              margin: EdgeInsets.symmetric(horizontal: 8.w),
                              decoration: BoxDecoration(
                                color: selectedMonth == index + 1
@@ -146,7 +185,7 @@ class _PregnancyScreenState extends State<PregnancyScreen> {
                                child: Text(
                                  '${index + 1}',
                                  style: TextStyle(
-                                   fontSize: 18.sp,
+                                   fontSize: 12.sp,
                                    fontWeight: FontWeight.bold,
                                    color:
                                    selectedMonth == index + 1 ? Colors.white : Colors.orange,
@@ -164,7 +203,7 @@ class _PregnancyScreenState extends State<PregnancyScreen> {
            ),
 
 
-            Container(
+            SizedBox(
               height: 800.h,
               child: Column(
                 children: [
@@ -176,14 +215,21 @@ class _PregnancyScreenState extends State<PregnancyScreen> {
                       itemBuilder: (context, index) {
                         final data = pregnancyData[index];
                         return Padding(
-                          padding: EdgeInsets.all(16),
+                          padding: EdgeInsets.all(16.w),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
+                              Row(
+mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text("Month ${data['month']}",
+                                      style: TextStyle(fontSize: 19.sp, color: Colors.orange,fontWeight: FontWeight.bold)),
+                                ],
+                              ),
                               Text(
                                 "More Details",
                                 style: TextStyle(
-                                    fontSize: 18.sp, fontWeight: FontWeight.bold, color: Colors.orange),
+                                    fontSize: 17.sp, fontWeight: FontWeight.bold, color: Colors.orange),
                               ),
                               SizedBox(height: 10.h),
                               Container(
@@ -194,8 +240,7 @@ class _PregnancyScreenState extends State<PregnancyScreen> {
                                 ),
                                 child: Column(
                                   children: [
-                                    Text("Month ${data['month']}",
-                                        style: TextStyle(fontSize: 20.sp, color: Colors.white)),
+
                                     Row(
                                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                                       children: [
@@ -234,22 +279,24 @@ class _PregnancyScreenState extends State<PregnancyScreen> {
                               SizedBox(height: 20.h),
                               Text(
                                 "Healthy Food",
-                                style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold, color: Colors.orange),
+                                style: TextStyle(fontSize: 17.sp, fontWeight: FontWeight.bold, color: Colors.orange),
                               ),
                               ListTile(
-                                leading: Image.asset('assets/images/milk.png', width: 50.w),
-                                title: Text("2 Glass Of Pure Milk"),
-                                subtitle: Text("Healthy drink for your health"),
+                                leading: Image.asset('assets/images/food.png', width: 50.w),
+                                title: Text(data['food'][0]),
                               ),
                               ListTile(
-                                leading: Image.asset('assets/images/banana.png', width: 50.w),
-                                title: Text("6 Bananas Daily"),
-                                subtitle: Text("Healthy food for your health"),
+                                leading: Image.asset('assets/images/food.png', width: 50.w),
+                                title: Text(data['food'][1]),
+                              ),
+                              ListTile(
+                                leading: Image.asset('assets/images/food.png', width: 50.w),
+                                title: Text(data['food'][2]),
                               ),
                               SizedBox(height: 10.h),
                               Text(
                                 "Video Tips",
-                                style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold, color: Colors.orange),
+                                style: TextStyle(fontSize: 17.sp, fontWeight: FontWeight.bold, color: Colors.orange),
                               ),
                               InkWell(
                                 onTap: () async {
@@ -257,11 +304,7 @@ class _PregnancyScreenState extends State<PregnancyScreen> {
                                       'https://youtu.be/1zpV5rzWXMA' );
 
                                   // Check if the URL can be launched
-                                  if (await canLaunchUrl(url)) {
-                                  await launchUrl(url, mode: LaunchMode.externalApplication);
-                                  } else {
-                                  throw 'Could not launch';
-                                  }                            },
+                                  await launchUrl(url, mode: LaunchMode.externalApplication);                           },
                                 child: Container(
                                   margin: EdgeInsets.only(top: 10.h),
                                   decoration: BoxDecoration(

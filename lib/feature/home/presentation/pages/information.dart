@@ -9,36 +9,50 @@ import 'package:pregnant_care/feature/home/presentation/pages/sleeping_screen.da
 
 import 'baby_eat.dart';
 
-
-
-
 class BabyCareScreen extends StatelessWidget {
   final List<Map<String, dynamic>> categories = [
-    {'title': 'Breastfeeding', 'image': 'assets/images/breastFeeding.png','screen':BreastfeedingScreen()},
-    {'title': 'Sleeping', 'image': 'assets/images/sleeping.png','screen':SleepingScreen()},
-    {'title': 'Growth', 'image': 'assets/images/growth.png','screen':GrowthScreen()},
-    {'title': 'Feeding', 'image': 'assets/images/feeding.png','screen':BabyEatScreen()},
-    {'title': 'Diaper', 'image': 'assets/images/diaper.png','screen':DiaperScreen()},
+    {'title': 'Breastfeeding', 'image': 'assets/images/breastFeeding.png', 'screen': BreastfeedingScreen()},
+    {'title': 'Sleeping', 'image': 'assets/images/sleeping.png', 'screen': SleepingScreen()},
+    {'title': 'Growth', 'image': 'assets/images/growth.png', 'screen': GrowthScreen()},
+    {'title': 'Feeding', 'image': 'assets/images/feeding.png', 'screen': BabyEatScreen()},
+    {'title': 'Diaper', 'image': 'assets/images/diaper.png', 'screen': DiaperScreen()},
   ];
-
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: mainColor,
       appBar: AppBar(
-        title: Text('Baby Care',),
+        title: Text('Baby Care'),
         centerTitle: true,
         backgroundColor: mainColor,
         elevation: 0,
-
       ),
-      body: Column(
-        children: [
-          Expanded(
-            child: Padding(
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black26,
+                    blurRadius: 10,
+                    spreadRadius: 2,
+                    offset: Offset(0, 4),
+                  ),
+                ],
+              ),
+              child: Image.asset(
+                'assets/images/three.jpg',
+                width: double.infinity,
+                fit: BoxFit.cover,
+              ),
+            ),
+            Padding(
               padding: EdgeInsets.all(16.0),
               child: GridView.builder(
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
                   crossAxisSpacing: 20,
@@ -59,30 +73,30 @@ class BabyCareScreen extends StatelessWidget {
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(40.r),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black12,
-                            blurRadius: 6,
-                            spreadRadius: 2,
-                          ),
-                        ],
+
                       ),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(1),
-                            child: Image.asset(
-                              height: 140.h,
-                              categories[index]['image'],
-                              fit: BoxFit.cover,
+                          Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10.r),
+
+                            ),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(10.r),
+                              child: Image.asset(
+                                categories[index]['image'],
+                                height: 140.h,
+                                fit: BoxFit.cover,
+                              ),
                             ),
                           ),
                           10.ph,
                           Text(
                             categories[index]['title'],
                             style: TextStyle(
-                              fontSize: 16,
+                              fontSize: 16.sp,
                               fontWeight: FontWeight.bold,
                               color: Colors.orange[700],
                             ),
@@ -94,8 +108,8 @@ class BabyCareScreen extends StatelessWidget {
                 },
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

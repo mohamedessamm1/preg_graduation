@@ -14,9 +14,9 @@ class DoctorDetailsScreen extends StatefulWidget {
 
   DoctorDetailsScreen(
       {super.key,
-      required this.doctorName,
-      required this.doctorSpeciality,
-      required this.doctorEmail});
+        required this.doctorName,
+        required this.doctorSpeciality,
+        required this.doctorEmail});
 
   @override
   _DoctorDetailsScreenState createState() => _DoctorDetailsScreenState(
@@ -37,6 +37,9 @@ class _DoctorDetailsScreenState extends State<DoctorDetailsScreen> {
   int selectedDayIndex = 0;
   String? selectedTime;
 
+  // Static storage for booked appointments per doctor
+  static Map<String, Set<String>> bookedAppointments = {};
+
   List<String> getNext7Days() {
     return List.generate(7, (index) {
       DateTime date = DateTime.now().add(Duration(days: index));
@@ -51,6 +54,21 @@ class _DoctorDetailsScreenState extends State<DoctorDetailsScreen> {
     '4:50 pm',
     '2:30 pm'
   ];
+
+  // Check if a specific appointment slot is booked for this doctor
+  bool isAppointmentBooked(String day, String time) {
+    String appointmentKey = '${day}_$time';
+    return bookedAppointments[doctorEmail]?.contains(appointmentKey) ?? false;
+  }
+
+  // Book an appointment for this doctor
+  void bookAppointment(String day, String time) {
+    String appointmentKey = '${day}_$time';
+    if (bookedAppointments[doctorEmail] == null) {
+      bookedAppointments[doctorEmail] = <String>{};
+    }
+    bookedAppointments[doctorEmail]!.add(appointmentKey);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -102,14 +120,12 @@ class _DoctorDetailsScreenState extends State<DoctorDetailsScreen> {
                           IconButton(
                             icon: Icon(Icons.call, color: Colors.white),
                             onPressed: () async {
-
                               final Uri phoneUri = Uri(scheme: 'tel', path: '01065661450');
                               if (await canLaunchUrl(phoneUri)) {
-                              await launchUrl(phoneUri);
+                                await launchUrl(phoneUri);
                               } else {
-                              throw 'Could not launch $phoneUri';
+                                throw 'Could not launch $phoneUri';
                               }
-
                             },
                           ),
                           IconButton(
@@ -157,6 +173,7 @@ class _DoctorDetailsScreenState extends State<DoctorDetailsScreen> {
                     onTap: () {
                       setState(() {
                         selectedDayIndex = index;
+                        selectedTime = null; // Reset selected time when day changes
                       });
                     },
                     child: _buildDayItem(day, index == selectedDayIndex),
@@ -176,13 +193,17 @@ class _DoctorDetailsScreenState extends State<DoctorDetailsScreen> {
                 spacing: 10.w,
                 runSpacing: 10.h,
                 children: availableTimes.map((time) {
+                  String selectedDay = next7Days[selectedDayIndex];
+                  bool isBooked = isAppointmentBooked(selectedDay, time);
+                  bool isSelected = selectedTime == time && !isBooked;
+
                   return GestureDetector(
-                    onTap: () {
+                    onTap: isBooked ? null : () {
                       setState(() {
                         selectedTime = time;
                       });
                     },
-                    child: _buildTimeSlot(time, selectedTime == time),
+                    child: _buildTimeSlot(time, isSelected, isBooked),
                   );
                 }).toList(),
               ),
@@ -192,22 +213,45 @@ class _DoctorDetailsScreenState extends State<DoctorDetailsScreen> {
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.brown,
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 30.w, vertical: 15.h),
+                    padding: EdgeInsets.symmetric(horizontal: 30.w, vertical: 15.h),
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20.r)),
                   ),
                   onPressed: () {
                     if (selectedTime != null) {
+                      String selectedDay = next7Days[selectedDayIndex];
+
+                      // Book the appointment
+                      bookAppointment(selectedDay, selectedTime!);
+
+                      // Send message
                       HomeCubit.get(context).sendMessageUser(
                         context: context,
-                          date: DateTime.now(),
-                          text: 'Appointment booked on ${next7Days[selectedDayIndex]} at $selectedTime',
-                          sender: CacheHelper.getdata(key: 'email'),
-                          receiverEmail: doctorEmail.toString(),
-                          );
+                        date: DateTime.now(),
+                        text: 'Appointment booked on $selectedDay at $selectedTime',
+                        sender: CacheHelper.getdata(key: 'email'),
+                        receiverEmail: doctorEmail.toString(),
+                      );
+
+                      // Reset selection and refresh UI
+                      setState(() {
+                        selectedTime = null;
+                      });
+
+                      // Show confirmation
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text('Appointment booked successfully on $selectedDay at $selectedTime'),
+                          backgroundColor: Colors.green,
+                        ),
+                      );
                     } else {
-                      print('Please select a time slot.');
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text('Please select a time slot.'),
+                          backgroundColor: Colors.red,
+                        ),
+                      );
                     }
                   },
                   child: Text(
@@ -245,19 +289,48 @@ class _DoctorDetailsScreenState extends State<DoctorDetailsScreen> {
     );
   }
 
-  Widget _buildTimeSlot(String time, bool isSelected) {
+  Widget _buildTimeSlot(String time, bool isSelected, bool isBooked) {
+    Color backgroundColor;
+    Color textColor;
+
+    if (isBooked) {
+      backgroundColor = Colors.grey;
+      textColor = Colors.white70;
+    } else if (isSelected) {
+      backgroundColor = Colors.orange;
+      textColor = Colors.white;
+    } else {
+      backgroundColor = Colors.white;
+      textColor = Colors.orange;
+    }
+
     return Container(
       padding: EdgeInsets.symmetric(vertical: 8.h, horizontal: 15.w),
       decoration: BoxDecoration(
-        color: isSelected ? Colors.orange : Colors.white,
+        color: backgroundColor,
         borderRadius: BorderRadius.circular(10.r),
+        border: isBooked ? Border.all(color: Colors.grey.shade400) : null,
       ),
-      child: Text(
-        time,
-        style: TextStyle(
-            fontSize: 14.sp,
-            fontWeight: FontWeight.bold,
-            color: isSelected ? Colors.white : Colors.orange),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            time,
+            style: TextStyle(
+              fontSize: 14.sp,
+              fontWeight: FontWeight.bold,
+              color: textColor,
+            ),
+          ),
+          if (isBooked) ...[
+            SizedBox(width: 5.w),
+            Icon(
+              Icons.lock,
+              size: 14.sp,
+              color: Colors.white70,
+            ),
+          ],
+        ],
       ),
     );
   }

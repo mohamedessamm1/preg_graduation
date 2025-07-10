@@ -5,6 +5,8 @@ import '../manager/chat_cubit.dart';
 import '../widgets/chat_body.dart';
 
 class BabyScreen extends StatelessWidget {
+  const BabyScreen({super.key});
+
 
   @override
   Widget build(BuildContext context) {

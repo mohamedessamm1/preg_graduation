@@ -4,6 +4,8 @@ import '../manager/chat_cubit.dart';
 import '../widgets/chat_body.dart';
 
 class YogaScreen extends StatelessWidget {
+  const YogaScreen({super.key});
+
 
   @override
   Widget build(BuildContext context) {

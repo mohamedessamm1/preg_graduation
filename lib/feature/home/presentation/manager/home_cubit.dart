@@ -17,7 +17,7 @@ import '../../../../core/shared/constant.dart';
 import '../../../../core/shared/model/user_model.dart';
 import '../pages/activity.dart';
 import '../pages/information.dart';
-import '../pages/latest_studies.dart';
+import '../pages/latest_studies/latest_studies.dart';
 import '../pages/mental_health.dart';
 import '../pages/pregnancy.dart';
 import '../pages/vacattion.dart';

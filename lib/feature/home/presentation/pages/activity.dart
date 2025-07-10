@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:pregnant_care/core/shared/Colors/colors.dart';
 import 'package:pregnant_care/core/shared/extension/extencion.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -33,68 +32,51 @@ class ActivitiesScreenState extends State<ActivitiesScreen> {
     },
     {
       "title": "Squatting exercises to facilitate childbirth",
-
       "image": "assets/images/stretching.png",
-    "url": "https://youtu.be/oZZzNn5DIqE?si=EjZtF0mn4uw09aWi"
-
+      "url": "https://youtu.be/oZZzNn5DIqE?si=EjZtF0mn4uw09aWi"
     },
     {
       "title": "Exercises to strengthen and open the pelvis",
-
       "image": "assets/images/exercise2.png",
       "url": "https://youtu.be/UDK6p7B_Ids?si=aq13plSV6bgZsocR"
-
     },
     {
       "title": "Yoga exercises for pregnant women",
       "image": "assets/images/yoga.png",
       "url": "https://youtu.be/pP1SvfbrllM?si=bjxs7Hpw-zDtqtJn"
-
     },
     {
       "title": "Leg exercises for pregnant women",
       "image": "assets/images/cardio.png",
-    "url": "https://youtu.be/Z3HZpckXLz4?si=u3vyeL42dfPu_kCt"
-
+      "url": "https://youtu.be/Z3HZpckXLz4?si=u3vyeL42dfPu_kCt"
     }
   ];
   final List<Map<String, String>> exercises1 = [
     {
       "title": "Exercises to tighten the abdomen after childbirth",
-
       "image": "assets/images/cardio.png",
       "url": "https://youtu.be/wV5vYo6DQTY?si=kDx-nwDb1G-VRO3q"
-
     },
     {
       "title": "Flat stomach after cesarean section",
-
       "image": "assets/images/exercise2.png",
       "url": "https://youtu.be/NY5xseeuwKY?si=7vqr6SbS9jeYn0Sy"
-
     },
     {
       "title": "Balanced breathing exercise",
-
       "image": "assets/images/exercise2.png",
       "url": "https://youtu.be/ACW6Tmfm1Uk?si=nAVBYg7mrmf2pLmI"
-
     },
     {
       "title": "Muscle separation exercises for women after childbirth",
-
       "image": "assets/images/exercise2.png",
       "url": "https://youtu.be/bNTgK7wDNW4?si=L5Loezom1zphM_MU"
-
     },
     {
       "title": "Pilates to close muscle separation",
-
       "image": "assets/images/exercise2.png",
       "url": "https://youtu.be/U7ks_hAYF1o?si=P5HGlG0XPJQUuwBs"
-
     },
-
   ];
   @override
   Widget build(BuildContext context) {
@@ -200,8 +182,7 @@ class ActivitiesScreenState extends State<ActivitiesScreen> {
     );
   }
 
-  Widget _buildExerciseCard(
-      String title, String imagePath, String url) {
+  Widget _buildExerciseCard(String title, String imagePath, String url) {
     return InkWell(
       onTap: () {
         _launchURL(url);

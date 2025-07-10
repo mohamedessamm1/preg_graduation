@@ -19,11 +19,11 @@ class LoginCubit extends Cubit<LoginState> {
   static LoginCubit get(context) => BlocProvider.of(context);
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-  bool passwordVisible = false;
+  bool passwordVisible = true;
   IconData passwordIcon = Icons.visibility_off;
   void changePasswordVisibility() {
     passwordVisible = !passwordVisible;
-    if(passwordVisible==true) {
+    if(passwordVisible==false) {
       passwordIcon = Icons.visibility_off;
     } else {
       passwordIcon = Icons.visibility;
